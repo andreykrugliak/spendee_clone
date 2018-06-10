@@ -13,6 +13,8 @@ const colors = {
   panther: '#161616',
   charcoal: '#595959',
   coal: '#2d2d2d',
+  notActiveTab: '#2d2d2d',
+  activeTab: '#24c822',
   bloodOrange: '#fb5f26',
   snow: 'white',
   ember: 'rgba(164, 0, 48, 0.5)',
