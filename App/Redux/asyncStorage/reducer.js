@@ -52,6 +52,26 @@ export default function localData(state = initialState, action) {
       }
       return {};
     }
+    case 'NEW_CATEGORY_EXP': {
+      if (action.payload) {
+        let tempTransaction = state.transationsTypesExpense
+        if(Array.isArray(tempTransaction)){
+          tempTransaction.push(action.payload)
+        }else{
+          tempTransaction = [];
+          tempTransaction.push(action.payload)
+        }
+        let newState = {
+          ...state,
+          transationsTypesExpense: tempTransaction
+        };
+
+        AsyncStorage.setItem('localList', JSON.stringify(newState));
+
+        return newState;
+      }
+      return {};
+    }
     default:
       return state;
   }

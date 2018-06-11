@@ -4,6 +4,9 @@ import TabNavigation from '../Containers/TabNavigation'
 import LaunchScreen from '../Containers/LaunchScreen'
 import TransactionsMain from '../Containers/TransactionsMain'
 import AddingModal from '../Containers/AddingModal'
+import OverviewMain from '../Containers/OverviewMain'
+import BudgetsMain from '../Containers/BudgetsMain'
+import SettingsMain from '../Containers/SettingsMain'
 
 const TransactionsStack = StackNavigator({
     TransactionsMain: {
@@ -22,8 +25,8 @@ const TransactionsStack = StackNavigator({
 
 
 const OverviewStack = StackNavigator({
-    LaunchScreen: {
-      screen: LaunchScreen,
+    OverviewMain: {
+      screen: OverviewMain,
       navigationOptions: {
         header: null,
         gesturesEnabled: false
@@ -31,7 +34,7 @@ const OverviewStack = StackNavigator({
     },
   },
   {
-    initialRouteName: 'LaunchScreen',
+    initialRouteName: 'OverviewMain',
     animationEnabled: false
   }
 )
@@ -53,8 +56,8 @@ const AddStack = StackNavigator({
   }
 )
 const BudgetsStack = StackNavigator({
-    LaunchScreen: {
-      screen: LaunchScreen,
+    BudgetsMain: {
+      screen: BudgetsMain,
       navigationOptions: {
         header: null,
         gesturesEnabled: false
@@ -62,13 +65,13 @@ const BudgetsStack = StackNavigator({
     },
   },
   {
-    initialRouteName: 'LaunchScreen',
+    initialRouteName: 'BudgetsMain',
     animationEnabled: false
   }
 )
 const SettingsStack = StackNavigator({
-    LaunchScreen: {
-      screen: LaunchScreen,
+    SettingsMain: {
+      screen: SettingsMain,
       navigationOptions: {
         header: null,
         gesturesEnabled: false
@@ -76,7 +79,7 @@ const SettingsStack = StackNavigator({
     },
   },
   {
-    initialRouteName: 'LaunchScreen',
+    initialRouteName: 'SettingsMain',
     animationEnabled: false
   }
 )
