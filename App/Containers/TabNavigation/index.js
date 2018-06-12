@@ -39,7 +39,7 @@ let styles = {
   },
   footerTabWrapper: {
     backgroundColor: 'white',
-    position: 'relative',
+    position: 'relative'
   },
   hideShadow: {
     position: 'absolute',
@@ -62,6 +62,7 @@ let styles = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.activeTab,
+    padding: 5,
     height: 40,
     width: 40,
     borderRadius: 50
@@ -110,18 +111,13 @@ class TabNavigation extends Component {
 
 
   goToTab (routeName) {
-
-    const navigation = this.props.navigation,
-      currentTab = navigation.state.routes[navigation.state.index],
-      currentRouteIndex = navigation.state.routes[navigation.state.index].index;
-
-    setTimeout(()=> {
+    const navigation = this.props.navigation
+    setTimeout(() => {
       navigation.navigate(routeName)
     })
   }
 
   renderTabs () {
-    const navigation = this.props.navigation
     let list = this.props.navigationState.routes.map((item, i) => {
       return (
         <Button key={i}

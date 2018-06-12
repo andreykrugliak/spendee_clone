@@ -1,6 +1,4 @@
 rootProject.name = 'spendeeClone'
-include ':react-native-interactable'
-project(':react-native-interactable').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-interactable/android')
 include ':react-native-svg'
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
 include ':react-native-vector-icons'

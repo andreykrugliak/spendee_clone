@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
 import nav from './navigation/reducer';
-import transactions from './transactions/reducer';
 import localData from './asyncStorage/reducer';
 
 /* ------------- Assemble The Reducers ------------- */
 const appReducer = combineReducers({
-  nav, transactions, localData
+  nav, localData
 })
 
 const rootReducer = (state, action) => {

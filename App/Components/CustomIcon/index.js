@@ -1,9 +1,7 @@
 import Icon from 'react-native-vector-icons/Ionicons';
 import React, { Component } from 'react'
 
-
 class CustomIcon extends Component {
-
   render () {
     return (
       <Icon

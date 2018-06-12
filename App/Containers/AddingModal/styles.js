@@ -20,6 +20,26 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.charcoal
   },
+  styleBtn: {
+    paddingHorizontal: 5,
+    marginRight: 10,
+    marginBottom: 10
+  },
+  inputBlock: {
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  inputBlockForm: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  fullScreenCentered: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   styleBtnNonActive: {
     backgroundColor: 'transparent',
     borderWidth: 1,
@@ -30,7 +50,7 @@ export default StyleSheet.create({
     padding: 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   }
 

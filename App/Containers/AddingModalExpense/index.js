@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, Dimensions, Platform } from 'react-native'
-import { Button, Footer, Content, Input, Form, Item, Label} from 'native-base'
+import { Text, View, Platform, Alert } from 'react-native'
+import { Button, Content, Input, Form, Item, Label} from 'native-base'
 import { connect } from 'react-redux'
 import CustomIcon from './../../Components/CustomIcon'
 import moment from 'moment'
@@ -11,14 +11,13 @@ import { setCurrentTransactionToStorage, setNewCategoryExpToStorage } from './..
 
 // Styles
 import styles from '../AddingModal/styles'
-import { Colors, Metrics } from './../../Themes'
+import { Colors } from './../../Themes'
 
 @connect(store => {
   return ({
     transationsTypesExpense: store.localData.transationsTypesExpense,
   })
 })
-
 
 export default class AddingModalExpense extends Component {
   constructor (props) {
@@ -35,12 +34,23 @@ export default class AddingModalExpense extends Component {
     this.setState({transationsTypesExpense: this.props.transationsTypesExpense})
   }
   createTransaction () {
-    if(this.state.text && this.state.selectedType && this.state.date){
+    if (this.state.text && this.state.selectedType && this.state.date) {
       this.props.dispatch(setCurrentTransactionToStorage({type: this.state.selectedType, data: parseInt(this.state.text), expense: true, date: this.state.date}))
+      Alert.alert(
+        'Transaction successfully added'
+      )
+      this.setState({ selectedType: null,
+        text: null,
+        date: moment().format(),
+        newCategory: null})
+    } else {
+      Alert.alert(
+        'Please fill in the fields'
+      )
     }
   }
   createNewCategory () {
-    if(this.state.newCategory){
+    if (this.state.newCategory) {
       this.props.dispatch(setNewCategoryExpToStorage({
         id: this.state.newCategory.replace(/\s/g, '').toLowerCase(),
         title: this.state.newCategory,
@@ -52,15 +62,17 @@ export default class AddingModalExpense extends Component {
   selectType (item) {
     if (!this.state.selectedType || (this.state.selectedType && this.state.selectedType.id !== item.id)) {
       this.setState({selectedType: item})
-    }else{
+    } else {
       this.setState({selectedType: null})
     }
   }
   renderListOfTypes () {
     if(this.state.transationsTypesExpense && Array.isArray(this.state.transationsTypesExpense)){
-      return this.state.transationsTypesExpense.map(item => {
+      return this.state.transationsTypesExpense.map((item, index) => {
         return(
-          <Button style={[this.state.selectedType && this.state.selectedType.id === item.id ? styles.styleBtnActive : styles.styleBtnNonActive, {marginBottom: 10, paddingHorizontal: 5}]} onPress={() => this.selectType(item)}>
+          <Button key={index}
+                  style={[this.state.selectedType && this.state.selectedType.id === item.id ? styles.styleBtnActive : styles.styleBtnNonActive, styles.styleBtn]}
+                  onPress={() => this.selectType(item)}>
             <CustomIcon name={Platform.OS === 'ios' ? 'ios-' + item.iconName : 'md-' + item.iconName} size={26} color={Colors.notActiveTab} />
             <Text style={styles.notActiveTab}>{item.title}</Text>
           </Button>
@@ -77,14 +89,12 @@ export default class AddingModalExpense extends Component {
   render () {
     return (
       <View style={styles.mainContainer}>
-
         <Content>
-          <View style={{backgroundColor: 'red', height: 100}}>
-            <Form style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.inputBlock}>
+            <Form style={styles.inputBlockForm}>
               <Item>
                 <Label>USD</Label>
-                <Input {...this.props}
-                       underlineColorAndroid='transparent'
+                <Input underlineColorAndroid='transparent'
                        onChangeText={(text) => this.enteringTextHandler(text, 'text')}
                        defaultValue={0}
                        placeholder={'Type here'}
@@ -97,15 +107,15 @@ export default class AddingModalExpense extends Component {
           </View>
           <View style={styles.typesContainer}>
             {this.renderListOfTypes()}
-            <View style={styles.typesContainer, {width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-              <Button transparent onPress={() => {this.showAddForm()}}>
+            <View style={styles.fullScreenCentered}>
+              <Button transparent onPress={() => { this.showAddForm() }}>
                 <CustomIcon name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'} size={26} color={Colors.notActiveTab} />
               </Button>
 
             </View>
             {this.state.addForm ?
               <View style={{width: '100%'}}>
-                <Form style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <Form style={styles.inputBlockForm}>
                   <Item floatingLabel>
                     <Label>New category</Label>
                     <Input
@@ -120,17 +130,15 @@ export default class AddingModalExpense extends Component {
               :
               null
             }
-
-
           </View>
           {
             this.state.date ?
               <DatePicker
-                style={{width: 200}}
+                style={{width: 200, paddingLeft: 20}}
                 date={this.state.date}
                 mode="datetime"
                 placeholder="select date"
-                format="YYYY-MM-DD"
+                format="YYYY-MM-DD h:mm"
                 minDate={moment().subtract(1, 'months').format()}
                 maxDate={moment().format()}
                 confirmBtnText="Confirm"
@@ -145,7 +153,6 @@ export default class AddingModalExpense extends Component {
                   dateInput: {
                     marginLeft: 36
                   }
-                  // ... You can check the source to find the other keys.
                 }}
                 onDateChange={(date) => {this.setState({date: date})}}
               />
@@ -155,10 +162,10 @@ export default class AddingModalExpense extends Component {
 
         </Content>
         <View>
-          <Button onPress={() => {this.createTransaction()}} full success>
+          <Button onPress={() => { this.createTransaction() }} full success>
             <Text>Add transaction</Text>
           </Button>
-          <Button full danger onPress={() => {this.props.navigation.navigate('TransactionsMain')}}>
+          <Button full danger onPress={() => { this.props.navigation.navigate('TransactionsMain') }}>
             <Text>Cancel</Text>
           </Button>
         </View>
