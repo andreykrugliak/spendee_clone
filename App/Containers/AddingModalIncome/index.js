@@ -94,14 +94,12 @@ export default class AddingModalExpense extends Component {
                 <Label>USD</Label>
                 <Input underlineColorAndroid='transparent'
                        onChangeText={(text) => this.enteringTextHandler(text, 'text')}
-                       defaultValue={0}
                        placeholder={'Type here'}
                        keyboardType={'numeric'}
                        value={this.state.text}
                        style={styles.input}/>
-              </Item>¬
+              </Item>
             </Form>
-
           </View>
           <View style={styles.typesContainer}>
             {this.renderListOfTypes()}

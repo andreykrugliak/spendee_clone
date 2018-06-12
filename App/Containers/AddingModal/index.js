@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions } from 'react-native'
+import { Dimensions, View } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
 
 import AddingModalIncome from '../AddingModalIncome'
@@ -24,15 +24,17 @@ export default class AddingModal extends Component {
   );
   render () {
     return (
-      <TabView
-        navigationState={this.state}
-        renderScene={SceneMap({
-          income: this.AddingModalIncomeTab,
-          expand: this.AddingModalExpenseTab,
-        })}
-        onIndexChange={index => this.setState({ index })}
-        initialLayout={{ width: Dimensions.get('window').width }}
-      />
+      <View style={{flex: 1}}>
+        <TabView
+          navigationState={this.state}
+          renderScene={SceneMap({
+            income: this.AddingModalIncomeTab,
+            expand: this.AddingModalExpenseTab,
+          })}
+          onIndexChange={index => this.setState({ index })}
+          initialLayout={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
+        />
+      </View>
     )
   }
 }
